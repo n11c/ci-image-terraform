@@ -1,0 +1,19 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: build
+    image: plugins/docker
+    settings:
+      repo: n11c/ci-image-terraform
+      username:
+        from_secret: REGISTRY_USER
+      password:
+        from_secret: REGISTRY_PASSWORD
+      tags:
+        - ${DRONE_TAG}
+        - latest
+
+trigger:
+  event:
+    - tag
